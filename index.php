@@ -83,7 +83,7 @@ if ( $result = mysqli_query( $link, $query )) {
 				<div class="badge"><?=$film['year'] ?></div>
 			</div>
 			<?php } ?>
-			
+
 			<div class="panel-holder mt-80 mb-40">
 				<div class="title-3 mt-0">Добавить фильм</div>
 				<form action="index.php" method="POST">
