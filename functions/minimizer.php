@@ -1,10 +1,10 @@
 <?php 
-if (isset($_FILES['photo']['name']) && $_FILES['photo']['tmp_name'] != "" ) {
 		$fileName = $_FILES['photo']['name'];
 		$fileTmpLoc = $_FILES['photo']['tmp_name'];
 		$fileType = $_FILES['photo']['type'];
 		$fileSize = $_FILES['photo']['size'];
 		$fileErrorMsg = $_FILES['photo']['error'];
+if (isset($_FILES['photo']['name']) && $_FILES['photo']['tmp_name'] != "" ) {
 		$kaboom = explode(".", $fileName);
 		$fileExt = end($kaboom);
 		list($width, $height) = getimagesize($fileTmpLoc);

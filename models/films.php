@@ -17,13 +17,23 @@ function film_new($link, $title, $genre, $year, $description){
 	
 		require_once( ROOT . "/functions/minimizer.php");
 	//Запись в БД
-	$query = "INSERT INTO films (title, genre, year, description, photo) VALUES (
-	'" . mysqli_real_escape_string($link, $title) . "',
-		'" . mysqli_real_escape_string($link, $genre) . "',
-		'" . mysqli_real_escape_string($link, $year) . "',
-		'" . mysqli_real_escape_string($link, $description) . "',
-		'" . mysqli_real_escape_string($link, $db_file_name) . "'
-		 )";
+	if ($fileSize > 0){
+		$query = "INSERT INTO films (title, genre, year, description, photo) VALUES (
+		'" . mysqli_real_escape_string($link, $title) . "',
+			'" . mysqli_real_escape_string($link, $genre) . "',
+			'" . mysqli_real_escape_string($link, $year) . "',
+			'" . mysqli_real_escape_string($link, $description) . "',
+			'" . mysqli_real_escape_string($link, $db_file_name) . "'
+			 )";
+	} else{
+		$query = "INSERT INTO films (title, genre, year, description) VALUES (
+		'" . mysqli_real_escape_string($link, $title) . "',
+			'" . mysqli_real_escape_string($link, $genre) . "',
+			'" . mysqli_real_escape_string($link, $year) . "',
+			'" . mysqli_real_escape_string($link, $description) . "'
+			 )";	
+	}
+	
 
 	 if (mysqli_query( $link, $query )) {
 	 	$result = true;
@@ -45,13 +55,23 @@ function get_film($link, $id){
 function film_update($link, $title, $genre, $year, $id, $description){
 	
 	require_once( ROOT . "/functions/minimizer.php");
-	$query = "	UPDATE films 
-				SET title = '". mysqli_real_escape_string($link, $title) ."', 
-					genre = '". mysqli_real_escape_string($link, $genre) ."', 
-					year = '". mysqli_real_escape_string($link, $year) ."', 
-					description = '". mysqli_real_escape_string($link, $description) ."', 
-					photo = '". mysqli_real_escape_string($link, $db_file_name) ."' 
-					WHERE id = ".mysqli_real_escape_string($link, $id)." LIMIT 1";
+	//Обновляем данные, при этом проверяем загружается ли картинка
+	if ($fileSize > 0){
+		$query = "	UPDATE films 
+					SET title = '". mysqli_real_escape_string($link, $title) ."', 
+						genre = '". mysqli_real_escape_string($link, $genre) ."', 
+						year = '". mysqli_real_escape_string($link, $year) ."', 
+						description = '". mysqli_real_escape_string($link, $description) ."', 
+						photo = '". mysqli_real_escape_string($link, $db_file_name) ."' 
+						WHERE id = ".mysqli_real_escape_string($link, $id)." LIMIT 1";
+	} else {
+		$query = "	UPDATE films 
+					SET title = '". mysqli_real_escape_string($link, $title) ."', 
+						genre = '". mysqli_real_escape_string($link, $genre) ."', 
+						year = '". mysqli_real_escape_string($link, $year) ."', 
+						description = '". mysqli_real_escape_string($link, $description) ."' 
+						WHERE id = ".mysqli_real_escape_string($link, $id)." LIMIT 1";
+	}
 
 	if ( mysqli_query($link, $query) ) {
 		$result = true;
