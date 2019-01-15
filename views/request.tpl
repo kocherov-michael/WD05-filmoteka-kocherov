@@ -1,5 +1,11 @@
 <h1>Укажите ваши данные</h1>
 
+<?php
+if ( !empty($errors)) {
+	foreach ($errors as $key => $value) {
+		echo "<div class='notify notify--error mb-20'>$value</div>";
+	}
+}?>
 <form action="set-cookie.php" method="POST" class="mb-50">
 	<div class="form-group"><label class="label">Ваше имя<input class="input" name="user-name" type="text" placeholder="" /></label></div>
 	
